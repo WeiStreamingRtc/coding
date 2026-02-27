@@ -165,8 +165,30 @@ public class TestSort {
 	}
 	
 
-// Insertion sort:
-
+// Insertion sort: how people sorting cards in their hands: pick one then put into right place
+/*
+Original: [5, 2, 4, 6, 1, 3]
+═══════════════════════════════════════════════
+i = 1: Inserting 2 into sorted portion [5]
+  Compare 2 with 5 → shift 5 right
+  [5, 5, 4, 6, 1, 3]  (2 < 5, so shift)
+  Place 2 at position 0
+  [2, 5, 4, 6, 1, 3]
+═══════════════════════════════════════════════
+i = 2: Inserting 4 into sorted portion [2, 5]
+  Compare 4 with 5 → shift 5 right
+  [2, 5, 5, 6, 1, 3]  (4 < 5, so shift)
+  Compare 4 with 2 → stop shifting (4 > 2)
+  Place 4 at position 1
+  [2, 4, 5, 6, 1, 3]
+═══════════════════════════════════════════════
+i = 3: Inserting 6 into sorted portion [2, 4, 5]
+  Compare 6 with 5 → no shift needed (6 > 5)
+  Place 6 at position 3
+  [2, 4, 5, 6, 1, 3]
+...
+Final: [1, 2, 3, 4, 5, 6]
+*/
  public static void insertionSort(int toSort[]) {
 	 //Note this is has to begin with i = 1, NOT i = 0
 	  for (int i = 1; i < toSort.length; i++) {

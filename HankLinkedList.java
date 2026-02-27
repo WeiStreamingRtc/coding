@@ -6,6 +6,13 @@ import java.util.*;
 Java LinkedList from util package implemented Queue interface, and can be used as a Queue, 
 example: https://examples.javacodegeeks.com/core-java/util/queue/java-queue-example/
 
+For new code, the Java documentation recommends using the Deque interface (pronounced "deck") for LIFO stacks . 
+It provides a complete and more consistent set of operations . The ArrayDeque class is a fast, resizable-array implementation of this interface .
+
+Note: Deque can be used as either Stack or Queue.
+
+ Deque<String> deque = new ArrayDeque<>();
+
 */
 
 class Node<T>{

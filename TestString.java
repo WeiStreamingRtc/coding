@@ -19,7 +19,7 @@ public class TestString{
 
             s = s+"a";
             System.out.println(s);
-			//This will be different every time
+			//This will be different every time, because a new object is created every time
 			System.out.println(s.hashCode());
         }
 		
@@ -34,7 +34,7 @@ public class TestString{
 			
 		}
 		boolean[] charSet = new boolean[5];
-		System.out.println("charSet [2]" + charSet[2]);
+		System.out.println("charSet [2]: " + charSet[2]);
 		
 		
 		String s1 = "eHllo";

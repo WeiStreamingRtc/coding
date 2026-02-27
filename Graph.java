@@ -116,13 +116,13 @@ public class Graph {
 	public void dfsNorecursive(){
 		if(adjLists.length == 0) return;
 		boolean[] visited = new boolean[adjLists.length];
-		Stack<Integer> stack = new Stack<Integer>();
+        Deque<Integer> stack = new ArrayDeque<>();
 		
 		stack.push(0); // start from the first vertex
 		
 		System.out.println("\nSTARTING AT " + adjLists[0].name);
 		
-		while( ! stack.empty() ){
+		while( ! stack.isEmpty() ){
 			int tmp = stack.pop();
 			if( !visited[tmp] ){
 				

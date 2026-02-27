@@ -36,6 +36,9 @@ Output: N = 10001010100
 public static int updateBit(int n, int m, int i, int j) {
 	int max = ~0;
 	// 1’s through position j, then 0’s, like 11110000
+	/*	(1 << j)     = 100...000   (1 followed by j zeros)
+		(1 << j) - 1 = 011...111   (0 followed by j ones)
+	*/
 	int left = max - ((1<<j) - 1);
 	// 1’s after position i, like 000001111
 	int right = (1<<i) -1;
@@ -73,7 +76,65 @@ public static int updateBit(int n, int m, int i, int j) {
 	
 	return ret;	
 }
+/*
+12.4: Converting to Binary (Theoretical)
+First, let's try to convert 12.4 to binary manually:
+Integer part (12):
+12 ÷ 2 = 6 remainder 0
+6 ÷ 2 = 3 remainder 0
+3 ÷ 2 = 1 remainder 1
+1 ÷ 2 = 0 remainder 1
+So 12 decimal = 1100 binary
 
+Fractional part (0.4):
+0.4 × 2 = 0.8 → integer part 0
+0.8 × 2 = 1.6 → integer part 1
+0.6 × 2 = 1.2 → integer part 1
+0.2 × 2 = 0.4 → integer part 0
+0.4 × 2 = 0.8 → integer part 0
+0.8 × 2 = 1.6 → integer part 1
+... and it repeats! (0110 pattern repeats)
+
+So 0.4 decimal = 0.01100110011001100110... (repeating 0110)
+
+IEEE 754 Floating-Point Standard
+
+Sign (1 bit)  |  Exponent (8 bits)  |  Mantissa (23 bits)
+      0       |      10000010       |  10001100110011001100110
+
+Because 0.4 has a repeating binary representation, it gets rounded to fit in 23 bits. This means:
+The computer stores an approximation of 12.4, not the exact value
+When you do calculations, small rounding errors can accumulate
+
+If you convert back to decimal, you might get something like 12.3999996185 instead of exactly 12.4.
+
+A decimal number can be stored exactly in binary floating-point if its fractional part, when converted to binary, terminates (doesn't repeat).
+When does a binary fraction terminate?
+A fraction terminates in binary if the denominator (when reduced) is a power of 2.
+
+Examples of exact representations:
+
+0.5 = 1/2 = binary 0.1 ✓
+0.25 = 1/4 = binary 0.01 ✓
+0.75 = 3/4 = binary 0.11 ✓
+0.125 = 1/8 = binary 0.001 ✓
+0.375 = 3/8 = binary 0.011 ✓
+0.0625 = 1/16 = binary 0.0001 ✓
+0.2? NO — 1/5 = denominator 5 (not a power of 2) → repeating!
+So 0.5, 0.25, 0.125, 0.375, 0.0625, 0.9375, etc. can be stored exactly.
+
+Numbers That Are Approximations
+Any decimal with a denominator that isn't a power of 2 when reduced will be a repeating binary fraction:
+
+0.1 (1/10) → repeating
+0.2 (1/5) → repeating
+0.3 (3/10) → repeating
+0.4 (2/5) → repeating
+0.6 (3/5) → repeating
+0.7 (7/10) → repeating
+0.8 (4/5) → repeating
+0.9 (9/10) → repeating
+*/
 public static void printBinary(String n){
 
 	int intPart = Integer.parseInt(n.substring(0, n.indexOf('.')));

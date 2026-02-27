@@ -147,10 +147,18 @@ public class dp {
 				if (T[i] > temp ){
 					T[i] = temp;
 				}				
-			}
-			
+			}			
 		}
 		
+		/*This is the coin first loop.
+		dp[i] = the minimum number of coins needed to make amount i using the coins processed so far		
+		for (int coin : coins) {
+			for (int i = coin; i <= target; i++) {
+				dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+			}
+		}
+		*/
+				
 	   return T[target];
 		
 	}
@@ -198,6 +206,7 @@ public class dp {
 		
 		/* NOTE: somehow, following solution is not working as it count 1+3 and 3+1 as two ways to make for 4 for example. 
 		 this is the code for the stair problem, because 1 + 3 is different from 3+1 in this case
+		 This is because we going through the coin many times in the inner loop
 		*/
 		/*for(int i = 1; i < val + 1; i ++){
 			for (int n = 0; n < coins.length; n ++){
@@ -211,6 +220,10 @@ public class dp {
 	 /* Following works, it only change the order of the two for loops.
 	 This works like: if we know the number of way to make N with coins{1 3, 5}, then we will know the number of ways to make N with coins combination of {1, 3, 5, 7 }.
 	 
+	 Outer loop (i) — coin choice
+		Process coins one by one
+		Once we move past a coin, we never go back
+		This prevents counting permutations like 1+3 and 3+1
 	 */
 	  int [] ways = new int[val+1];
 
@@ -257,17 +270,17 @@ public class dp {
 		
 		ways[0] = 1;
 		
+		//if temp is like 32, there is only one way to decode it: 3-2, if like 22, there are two ways: 2-2, and 22
 		ways[1] = Integer.parseInt(temp) <= 26 ? 2: 1 ;
 		
 		for(int n = 2; n < msg.length(); n ++){
 			temp = msg.substring(n-1,n +1);
 			int num = Integer.parseInt(temp);
 			//NOTE: if <=26, way[n] = way[n - 1] + way[n-2], because the last two can be united as a new one to add to n-2
-			ways[n] += ways[n -1 ];
+			ways[n] += ways[n -1];
 			if(num <= 26){
-				ways[n] += ways[n - 2 ];
-			}
-			
+				ways[n] += ways[n - 2];
+			}			
 		}
 		
 		return ways[msg.length() -1];
@@ -313,7 +326,8 @@ public class dp {
 		ArrayList<List<Integer>> result  = new ArrayList<List<Integer>>(jobs.length);
 		int[] lastIndex = new int[jobs.length];
 		
-		//****Note**** this is a way to sort multi dimention array, when passed to compare, it is one dimentional array		
+		//****Note**** this is a way to sort multi dimention array, when passed to compare, it is one dimentional array
+		//You can also define a helper utility class of Job for it, which is much easier to understand
         Arrays.sort(jobs, new java.util.Comparator<int[]>(){
 			public int compare(int[] a, int[] b){
 				return (a[1] <  b[1] ? -1 :( a[1] == b[1]? 0: 1)); }			
@@ -384,6 +398,8 @@ public class dp {
 	/*https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
 	  Found the longest common subsequence: Let X be XMJYAUZ and Y be MZJAWXU. The longest common subsequence between is MJAU
 	  To do this, need to contrstruct a two dimentional array, like followingng:
+	  This array is used to memororize the result of each smaller sub problems.
+	  
 	  T E R R A C E D
 	C 0 0 0 0 0 1 1 1
 	R 0 0 1 1 1 1 1 1
@@ -441,7 +457,7 @@ public class dp {
 		System.out.println("number ways to decode: " + "121 : " + numDecoding("121"));
 		System.out.println("number ways to decode: " + "121 : " + numDecodingRecursive("121"));		
 		
-		int[] coins = {1, 3, 5, 7};
+		int[] coins = { 3, 5, 1, 7};
 		int target = 8;
 		
 		System.out.println("8 minimum = " + findMinCoins(coins, target));
