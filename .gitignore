@@ -1,0 +1,114 @@
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### Eclipse ###
+.project
+.classpath
+.settings/
+bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
+
+### Compiled class files ###
+*.class
+
+### Logs ###
+logs/
+*.log
+
+### Package files ###
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+### Virtual machine crash logs ###
+hs_err_pid*
+replay_pid*
+
+### Mac OS ###
+.DS_Store
+
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+!/.mvn/wrapper/maven-wrapper.jar
+
+### Gradle ###
+.gradle/
+**/build/
+!src/**/build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+### Gradle Wrapper ###
+gradle/wrapper/gradle-wrapper.properties
+
+### IntelliJ specific files/directories ###
+.idea_modules/
+*.hprof
+*.jfr
+*.dump
+*.stackdump
+.cache/
+*.iws
+*.ipr
+*.iml
+*.classpath
+*.project
+.settings/
+.factorypath
+
+### Exclude specific IntelliJ files that might contain local settings ###
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.idea/datasources.xml
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/dataSources.local.xml
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
+.idea/compiler.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/encodings.xml
+.idea/runConfigurations/
+.idea/libraries/
+.idea/artifacts/
+.idea/jarRepositories.xml
+.idea/shelf/
+
+### Allow these IntelliJ files (project-specific but not user-specific) ###
+!.idea/description.html
+!.idea/icon.png
+!.idea/runConfigurations/README.txt
