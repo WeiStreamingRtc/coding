@@ -1,7 +1,9 @@
 import java.util.*;
 
+import static java.lang.Integer.valueOf;
 
-	class AmazonNode {
+
+class AmazonNode {
 		int val;
 		AmazonNode left, right;
 		
@@ -166,7 +168,7 @@ public class amazon {
 		
 		stack.push(root);
 		tmpList = new LinkedList<Integer>();
-		tmpList.add(new Integer(root.val));
+		tmpList.add(root.val);
 		
 		pathList.push(tmpList);
 		
@@ -187,7 +189,7 @@ public class amazon {
 					current.add(temp);					
 				}
 				
-				current.add(new Integer(tmp.left.val));
+				current.add(tmp.left.val);
 				pathList.push(current);
 				
 			}
@@ -198,7 +200,7 @@ public class amazon {
 				for (Integer temp : tmpList){
 					current.add(temp);					
 				}
-				current.add(new Integer(tmp.right.val));
+				current.add(tmp.right.val);
 				pathList.push(current);
 			}
 		}

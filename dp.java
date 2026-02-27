@@ -4,54 +4,66 @@ public class dp {
 	
 	
 	//http://www.techiedelight.com/3-partition-problem/
-	public static boolean partition(int[] array, int parts, boolean checked, int subSum){
-		/*First check if it can be parted. the sum of the array should be the multiple of the parts.  if not, then it can not be parted. For example:  if the sum of the array is 25, it cannot be parted into 3 parts. */		
-		if(!checked){
-			int sum = 0;
-			for(int n = 0; n < array.length; n ++){
-				sum += array[n];				
-			}
-			if (sum % parts != 0 ) {
-				return false;
-			}
-			else {
-				subSum = sum / parts;
-			}
-		}
-		
-		
-		int[] pickedIndex = new int[array.length];
-		int pickedNumb = 0;
-		int tempSum = array[ array.length - 1];
-		/*From the array, pick a first array that can sum up to the subSum, then continue to find the rest.
-		*/
-		for(int n = 0; n < array.length -1; n ++){
+	public static boolean subsetSum(int[] S, int n, int a, int b, int c, List<Integer> aList, List<Integer> bList,  List<Integer> cList)
+    {
+        // return true if the subset is found
+        if (a == 0 && b == 0 && c == 0) {
+            return true;
+        }
+ 
+        // base case: no items left
+        if (n < 0) {
+            return false;
+        }
+ 
+        // Case 1. The current item becomes part of the first subset
+        boolean A = false;
+        if (a - S[n] >= 0) {
 			
-			tempSum += array[n];
-			if(tempSum == subSum){
-				pickedIndex[pickedNumb] = n;
-				pickedNumb ++;
-				break;				
-			}
-			else if(tempSum > subSum){
-								
-			}
-			
-		}
-		
-		return true;
-	}
+            A = subsetSum(S, n - 1, a - S[n], b, c, aList, bList, cList);
+			if(A) aList.add(S[n]);
+        }
+ 
+        // Case 2. The current item becomes part of the second subset
+        boolean B = false;
+        if (!A && (b - S[n] >= 0)) {
+            B = subsetSum(S, n - 1, a, b - S[n], c, aList, bList, cList);
+			if(B) bList.add(S[n]);
+        }
+ 
+        // Case 3. The current item becomes part of the third subset
+        boolean C = false;
+        if ((!A && !B) && (c - S[n] >= 0)) {
+            C = subsetSum(S, n - 1, a, b, c - S[n], aList, bList, cList);
+			if(C) cList.add(S[n]);
+        }
+ 
+        // return true if we get a solution
+        return A || B || C;
+    }
 	
 	public static boolean partitionArray(){
 		int[] arr = {7,3,2,1,5,4,8};
 		
 		Arrays.sort(arr);
 		
-		boolean result = partition(arr, 3, false, -1);
+		ArrayList<Integer> aList = new ArrayList<>();
+		ArrayList<Integer> bList = new ArrayList<>();
+		ArrayList<Integer> cList = new ArrayList<>();
 		
+
+		if (arr.length < 3) {
+            return false;
+        }
+ 
+        // get the sum of all elements in the set
+        int sum = Arrays.stream(arr).sum();
+ 
+        // return true if the sum is divisible by 3 and the set `S` can
+        // be divided into three subsets with an equal sum
+        boolean result = (sum % 3) == 0 && subsetSum(arr, arr.length - 1, sum/3, sum/3, sum/3, aList, bList, cList);
+
 		return result;
-		
-		
 	}
 	//This is a help function to check if the input sorted array can make a certain target sum, and in the resultIndex will have the picked index
 	//for example the for {2,7,9,10}, target is 11, will return 0,2 in resultIndex, which is 2+9 = 11, and return 2, which means picked two number.
@@ -406,6 +418,8 @@ public class dp {
 		return ret[len -1][len -1];
 	}
 	public static void main(String [] arg){
+		
+		partitionArray();
 		
 		int[][] jobs = {{0, 6, 60 }, {1, 4, 30}, {3, 5, 10} ,{5, 7, 30}, {5, 9, 50},{7 ,8, 10}};
 		

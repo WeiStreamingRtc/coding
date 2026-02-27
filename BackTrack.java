@@ -2,10 +2,22 @@ import java.util.*;
 
 /*
 Give an array of numbers and another target numberm, found all the combinations that add up to the given number. like a coin change problem
-
 Most backtracking questions has to use recursion.
+                
+Almost all backtracking solutions follow this exact structure:
+				
+1.choose
+2.recurse
+3.unchoose   // the remove line, this is backtracking
+				
+Another rule is: 
+1. The caller adds the element // the line: chosen.add(givenList.get(i)); this is the line trying to explore see if found
+2. The caller is responsible for removing it
+3. The callee (combHelper) must not remove it // chosen.remove(chosen.size()-1);, this is line to unchoose, to remove the last added number							
 
 */
+
+
 public class BackTrack {
 	
 	static int deep = 0;
@@ -79,12 +91,21 @@ public class BackTrack {
 				deep ++;
 	            
 				//System.out.println("deep = " + deep +", start = " + start);
-               // System.out.println("Before: " + "i = " + i + " start = " + start + ", curSum = " + curSum + ", chosen = " + chosen);
+              // System.out.println("Before: " + "i = " + i + " start = " + start + ", curSum = " + curSum + ", chosen = " + chosen);
                 
 				combHelper(givenList,curSum + givenList.get(i), desiredSum , i ,listOfLists ,chosen);
 				
                 //System.out.println("After: " + "i = " + i + " start = " + start + ", curSum = " + curSum + ", chosen = " + chosen);
-                
+                /* Almost all backtracking solutions follow this exact structure:
+				choose
+				recurse
+				unchoose   // the remove line below, this is backtracking
+				
+				Another rule is: 
+				1. The caller adds the element // the line: chosen.add(givenList.get(i));
+			    2. The caller is responsible for removing it
+			    3. The callee (combHelper) must not remove it
+				*/
 				chosen.remove(chosen.size()-1);
 				
 				//System.out.println("Remove: " + "i = " + i + " start = " + start + ", curSum = " + curSum + ", chosen = " + chosen);
