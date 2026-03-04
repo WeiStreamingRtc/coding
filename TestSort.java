@@ -123,25 +123,41 @@ public class TestSort {
 		return d;
 	}
 
+	/*
+	QuickSort is a divide-and-conquer algorithm that sorts by selecting a pivot element and then partitioning
+	 the other elements into two groups: those less than the pivot and those greater than the pivot.
+
+	It then recursively performs the same process on the two resulting sub-arrays (or sub-lists).
+	Because the pivot is placed in its correct sorted position during each partition step,
+	repeating this process recursively results in a fully sorted list.
+
+	Time Complexity
+	Best Case: $O(n \log n)$
+	Occurs when the pivot always divides the array into two equal halves.
+
+	Average Case: $O(n \log n)$
+	Even with random splits, the performance holds up well.
+
+	Worst Case: $O(n^2)$
+	Occurs when the pivot is always the smallest or largest element (e.g., sorting an already sorted array with
+	a bad pivot choice, like the first element).
+
+	Space Complexity
+	$O(\log n)$
+	This is the space required for the call stack due to recursion. It does not usually count the space used
+	to store the original array (which is $O(n)$).
+	 */
 
 	public static void quickSort(int[] array, int left, int right){
 		
 		int pivot = (array[left] + array[right] )/ 2;
-		
-		/*for (Integer i : array){
-            System.out.print(i);
-			System.out.print(" ");
-        }
-		System.out.println();
-		
-		System.out.println(" left = " + left +   ", right =  " + right + ", pivot = " + pivot );
-		*/
+
 		int l = left;
 		int r = right;
 		int tmp = 0;
 		
-		
 		//NOTE: NOT l<=r, which can end in endless loop
+		//This is the code for partition (separate the array by pivot) and swap:
 		while(l < r){ 
 			
 			while( array[l] < pivot ) l ++;
@@ -190,7 +206,7 @@ i = 3: Inserting 6 into sorted portion [2, 4, 5]
 Final: [1, 2, 3, 4, 5, 6]
 */
  public static void insertionSort(int toSort[]) {
-	 //Note this is has to begin with i = 1, NOT i = 0
+	 //Note this has to begin with i = 1, NOT i = 0
 	  for (int i = 1; i < toSort.length; i++) {
 		   int value = toSort[i];
 		   int j = i -1 ;

@@ -193,7 +193,37 @@ public static void  convertBinary(int num){
 }
 
 
-//conver decimal to negative 2 based binary
+
+/*
+conver decimal to negative 2 based binary
+Note:  StringBuilder has a reverse function that just reverse the string at end will solve  the problem
+This is base −2, which means each digit represents a power of −2:
+  ...  16  -8   4  -2   1
+     (-2)^4 (-2)^3 (-2)^2 (-2)^1 (-2)^0
+	 1 % -2 = 1
+     -1 % -2 = -1   ← problem
+But in base −2, digits must be: 0 or 1
+
+If remainder is negative:
+	Add 2 to make it positive
+	Compensate by increasing quotient by 1
+When converting to base −2, we want: x = quotient × (−2) + remainder
+*/
+public static String negaBinary(int x) {
+		StringBuilder sb = new StringBuilder();
+		while (x != 0) {
+			int rem = x % -2;
+			x = x / -2;
+			if (rem < 0) {
+				rem += 2;
+				x += 1;
+			}
+			sb.append(rem);
+		}
+		return sb.reverse().toString();
+	}
+
+
 public static void  convertNegativeBinary(int num){
 	
 	

@@ -39,7 +39,7 @@ public class TestString{
 		
 		String s1 = "eHllo";
 		String s2 = "olleH";
-		
+
 		char [] a1 = s1.toCharArray();
 		char [] a2 = s2.toCharArray();
 		

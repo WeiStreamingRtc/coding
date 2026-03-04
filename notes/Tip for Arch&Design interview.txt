@@ -1,0 +1,226 @@
+--------------------------------------------------------------------------------------
+How to drive Architecture & Design interview
+--------------------------------------------------------------------------------------
+Steps to follow
+
+1. Drive the interview, never stop.
+
+Step 1:  Need to work out a list of top level requirement and constraints first. Doing this at the Q&A and clarification time
+For example, need to do a detailed requirement analysis,  translate the number into meaningful ones. 
+
+Step 2:  Take 2 or 3 key features and try to take about how those features will be implemented
+
+2. Divide and conquer.
+Divide these unclear big probles into small pieces and handle them one by one.
+ 
+3. If possible, talk about security. Encryption, authentication, PKI,etc
+
+4. Talk about how data flows, call sequence, class diagram
+
+5. DataBase table
+
+6. How to store and process  data
+
+ Remember there is no right or wrong answer
+
+
+
+
+ video to watch:
+ 
+ https://www.youtube.com/watch?v=UzLMhqg3_Wc
+ 
+ 
+--------------------------------------------------------------------------------------
+Tips for battery life
+--------------------------------------------------------------------------------------
+https://developer.android.com/topic/performance/power/
+
+1. Lazy first
+2. Defer. can it wait to until the phone is plugged
+3. Coalesce. Try to batch works together.
+4. Exponential backoff.  Depending on the conditions you assign for running a task, such as network availability, after the task is triggered, a change may occur so that those conditions are no longer met. In such a case, your operation may fail unexpectedly and repeatedly. For this reason, you should code your background task logic to notice when tasks are failing persistently, and perform exponential back-off to avoid inadvertently over-using resources.
+
+  Remember to use exponential backoff when rescheduling any work, especially when using AlarmManager. If your app uses JobScheduler, Firebase JobDispatcher, or sync adapters, exponential backoff is automatically used.
+  
+  For JobScheduler, when build a JobInfor, you can choose the flag: BACKOFF_POLICY_EXPONENTIAL, 
+  
+  JobInfo.Builder APIs like: setRequiresCharging(), setRequiresDeviceIdle(), etc 
+  
+5.  
+
+
+
+--------------------------------------------------------------------------------------
+Tips for network usage
+--------------------------------------------------------------------------------------
+https://developer.android.com/topic/performance/power/network/action-any-traffic
+
+1. Compress data, using a compression technique such as GZIP compression, Facebook has a zip technique: Zstandard
+
+2. Use succinct data protocols. While JSON and XML offer human-readability, and language-flexibility, they are bandwidth-heavy formats, with high serialization costs in the Android platform. Binary serialization formats, such as Protocol Buffers or FlatBuffers offer a smaller on-the-wire packet size, as well as faster encoding and decoding time. If your application transfers a lot of serialized data on a regular basis, these formats can yield benefits for decoding time and transfer size.
+
+3. Cache files locally. Cache as long as possible -- until user clear it
+
+4. Modify your download patterns based on the connectivity type.  In most cases a Wi-Fi radio will offer greater bandwidth at a significantly lower battery cost. As a result, you should endeavor to perform data transfers when connected over Wi-Fi whenever possible.
+
+When connected over a wireless radio, higher bandwidth generally comes at the price of higher battery cost. Meaning that LTE typically consumes more energy than 3G, which is in turn more expensive than 2G.
+
+
+--------------------------------------------------------------------------------------
+Important Principles of Good Software
+--------------------------------------------------------------------------------------
+https://developer.android.com/topic/performance/power/network/action-any-traffic
+1. Separation of concerns 
+
+2. Driving UI from a persistent model
+
+
+
+
+
+
+
+
+---------------------------------------
+LiveData
+---------------------------------------
+LiveData is an extension of Observer design pattern. It add anothe piece in the pattern
+
+We have three blank entities in the Observer design pattern. Client, which is interested in some events that happened in the Observable; and the Observer interface, which Client implements.
+
+The Client registers itself with the Observable, and the Observable notifies the Client through this interface when the events, that the Client was interested in, happen. This is probably one of the most used design patterns in the world.
+
+What’s LiveData, then? We start with the same three classes, but we add another one, called LiveData. The Client still implements the Observer interface, but instead of directly registering itself with the Observable, the Client gets a reference to LiveData from the Observable and then registers itself with the LiveData.
+
+LiveData will release us from understanding and handle Lifecycle of activities and fragments. However, in practice, I would argue that it does not achieve that and only complicates the matter. For example, if you look at the interface, at the API of LiveData, you will notice that it has several methods for registration. One method takes LifecycleOwner as a parameter and the other method, ObserveForever, takes no LifecycleOwner as a parameter.
+
+LiveData also means loss of a control over Observer interface. When we implemented the Custom Observer Pattern, we had total control over Observer interface.
+
+LiveData is an observable data holder class. Unlike a regular observable, LiveData is lifecycle-aware, meaning it respects the lifecycle of other app components, such as activities, fragments, or services. This awareness ensures LiveData only updates app component observers that are in an active lifecycle state.
+
+
+1. heavily depends on observer pattern
+2. need to work with asynchronous thread to load data, like: AsyncTask,  Executor, or Room--- which automatically run the generated query in background thread when needed.
+
+ But for Room, just the generated query is run in background thread. for other stuff, still need Executor.
+
+--------------------------------------
+ViewModel
+--------------------------------------
+
+Not too useful
+--------------
+Not too useful, becuase the amount of applications that need to handle screen rotation is fewer than you think.
+
+ViewModel has nothing in common with MVVM architectural pattern. It is misleadingly named and does not describe its real intent: a ViewModel is kept upon configuration change, so it is an Object, which is logically scoped to activity and fragment.
+
+The amount of applications that need to handle screen rotation is fewer than you think. This is the formula I like to have a developer ask: Start with your Home screen and swipe on the screen. Count the number of applications that you routinely interact with in landscape mode, divide them by the total number of application that you counted, that you have on this main screen.
+
+That resulting percentage is the fraction of application that needs to take care of rotation for you as a user.
+
+Optimizing for rotation is generally a waste of time, and I will wait for some analytics from my users to decide if this is necessary.
+
+
+Does not support low-memory-killer scenario
+---------------------------------------------
+
+If you go back and read the code demonstrating the “old” approach above, you will notice that in addition to supporting configuration changes, it also supports save and restore flow. In case of the new approach involving ViewModel, however, save and restore flow results in loss of developer managed state.
+
+Note that only developer managed state will be lost. Android will always do its part and restore the state it is responsible for. It is only the state kept in ViewModel that will not be restored.
+
+This state inconsistency is much worse than not restoring any state at all. Imagine that the user can navigate back to previous Activities, but their state was restored only partially (e.g. some references that must not be nullable during normal operation are nulls).
+
+ViewModel does not support save&restore, which will support for config change and low-memory-killer. onSaveInstanceState() will called also by android before killing any app. while in ViewModel, it only support config change, does not support low-memory-killer scenario. This means that there can be partially / inconsitent data recovered if app is killed.
+
+Not a good design to store large data at the logical scope of avitiy
+-------------------------------------------------------------------
+ViewModel supose can store a little more data than onSaveInstanceState(), but it may be not a good design.
+
+The only state that should be stored in the logical scope of Activities and Fragments is UI state and data identifiers.
+
+Large data sets should be stored in Application scope, or, depending on the requirements, persisted to SQLite or some other persistent storage.
+
+Since there is no clear valid use case for ViewModel Architecture Component, its introduction can be hardly justified.
+
+Also, saving such a lot data at logical Activity scope is not a good design, maybe should be save to Application scope or SQL DB
+ 
+
+Turns out that there is an upper limit on the amount of data that can be stored during save and restore flow. I couldn’t find the exact number, but looks like it is at approximately 500kB.
+
+If you attempt to save more than 500kB of data during onSaveInstanceState() call, you will be presented with TransactionTooLargeException.
+
+In this situation it becomes very tempting to use ViewModel in order to retain big data sets during configuration changes.
+
+In my opinion, under no circumstances should large data sets be “stored” in either Activities or Fragments. Let me explain why using two imaginary scenarios.
+
+The only state that should be stored in Activities and Fragments is UI state and data identifiers.
+
+Large data sets should be stored in Application scope, or, depending on the requirements, persisted to SQLite or some other persistent storage.
+
+
+Important notes
+-----------------
+However, you can combine ViewModel and onSaveInstanceState() to achieve better experience, for example:
+* use ViewModel to store actual data for UI (e.g. list of friends for the user)
+* use onSaveInstanceState() to store data necessary for getting data for activity after it’s killed by the system (e.g. id of the current user)
+
+**ViewModel and LiveData are testable, can be tested in isolation.
+
+**ViewModel should not reference Activity context, should only reference Application Context, otherwise, will have memory leak
+
+**LiveData still need to load data in a AsyncTask or service.
+
+
+------------------------------
+Some common libraries
+------------------------------
+1. Retrofit for http net works
+
+Retrofit methods can be declared for either synchronous or asynchronous execution.
+
+A method with a return type will be executed synchronously.
+
+@GET("/user/{id}/photo")
+Photo getUserPhoto(@Path("id") int id);
+Asynchronous execution requires the last parameter of the method be a Callback.
+
+@GET("/user/{id}/photo")
+void getUserPhoto(@Path("id") int id, Callback<Photo> cb);
+On Android, callbacks will be executed on the main thread. For desktop applications 
+
+
+
+
+2. Image downloading and caching:
+Picasso and Volley: both can load image from network and caching on disk
+https://www.bignerdranch.com/blog/solving-the-android-image-loading-problem-volley-vs-picasso/
+
+Picasso is totally focused on image loading. As a result, if you have quirks in your image loading process, then there’s a hook there to hang your quirk on.
+
+Picasso will automatically doing the work at background thread, no need AsyncTask, etc.
+
+Volley, on the other hand, is totally focused on handling individual, small HTTP requests. So if your HTTP request handling has some quirks, Volley probably has a hook for you. If, on the other hand, you have a quirk in your image handling, the only real hook you have is ImageCache. It’s not nothing, but it’s not a lot, either.
+
+
+3. Json parsing libraries
+GSON or Jackson, both are good, Jackson maybe a little better
+
+Gson is from google, 
+
+
+
+4. RxJava
+------------------
+Event drive, everying can emit event and be consumed by any observer. Reactive Programming is basically event-based asynchronous programming.
+
+Rely on observe pattern
+
+
+--------------------------------
+To read: 
+--------------------------------
+
+https://academy.realm.io/posts/android-architecture-components-considered-harmful-mobilization/
+
+Try to understand high level how DI works

@@ -1,0 +1,63 @@
+Recursive solution of Fibonacci:  time complexicyt is exponential O(2 expo n), space complexity is O(n) -- just propotion to the size of n
+https://www.youtube.com/watch?v=dxyYP3BSdcQ
+https://www.youtube.com/watch?v=pqivnzmSbq4
+
+
+
+
+1. Negative 2 representation:
+-------------------------------
+https://www.careercup.com/question?id=5728108897370112
+
+
+/* 
+Note:  StringBuilder has a reverse function that just reverse the string at end will solve  the problem
+
+This is base −2, which means each digit represents a power of −2:
+...  16  -8   4  -2   1
+     (-2)^4 (-2)^3 (-2)^2 (-2)^1 (-2)^0
+	 
+	 1 % -2 = 1
+     -1 % -2 = -1   ← problem
+But in base −2, digits must be: 0 or 1
+
+If remainder is negative:
+	Add 2 to make it positive
+	Compensate by increasing quotient by 1
+	
+When converting to base −2, we want: x = quotient × (−2) + remainder
+*/
+private static String negaBinary(int x) {
+    StringBuilder sb = new StringBuilder();
+    while (x != 0) {
+      int rem = x % -2;
+      x = x / -2;
+      if (rem < 0) {
+        rem += 2;
+        x += 1;
+      }
+      sb.append(rem);
+    }
+    return sb.reverse().toString();
+  }
+  
+ 
+ 
+2. Backtracking
+--------------------
+procedure bt(c)
+  if reject(P,c) then return
+  if accept(P,c) then output(P,c)
+  s ← first(P,c)
+  while s ≠ NULL do
+    bt(s)
+    s ← next(P,s)
+	
+This is used to solve the problem of :Give an array of numbers and another target numberm, found all the combinations. 
+Please refer BackTrack.java
+
+The problem: Generate all Parentheses. the solution comes with detailed anylize the steps of how to solve if n = 2. https://www.youtube.com/watch?v=LxwiwlUDOk4
+
+
+
+
