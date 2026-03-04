@@ -18,13 +18,10 @@ public class amazon {
 	public static boolean isDistinct(String input){
 		
 		int[] val = new int[26];
-		
 		boolean ret = true;
-		
 		char temp;
 		for(int n = 0; n < input.length(); n ++){
 			temp = input.charAt(n);
-			
 			if (val[temp - 'a'] > 0){
 				ret = false;
 				break;
@@ -32,11 +29,8 @@ public class amazon {
 			else {
 				val[temp - 'a'] = 1;
 			}
-			
 		}
-		
 		return ret;
-		
 	}
 	//This is to found the substring which has the length of num, with distinct characters.
 	//This is for question2, amazon2.png
