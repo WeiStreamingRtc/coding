@@ -34,7 +34,7 @@ public class amazon {
 	}
 	//This is to found the substring which has the length of num, with distinct characters.
 	//This is for question2, amazon2.png
-	public static List foundBum(String input, int num){
+	public static List foundSum(String input, int num){
 		ArrayList<String> ret = new ArrayList<String>();
 		
 		String temp = "";
@@ -51,7 +51,7 @@ public class amazon {
 	/*Following code spend more time, this is a mistake?
 	Should try to use help function like the previous one. even you do not know how to implement the help function yet, 
 	which can be done later when coding. should try to think like computer. 
-	This help function stratigy is kind of divide and conque: focus on the main problem first, then focus on small problem
+	This help function strategy is kind of divide and conquer: focus on the main problem first, then focus on small problem
 	one by one.
 	Following approach is trying to solve everything all at the same time--which human can do.
 	This approach is sort of a dynamic programming, if I know length of n-1 is found, then if add 1, easy to to know if it is found.
@@ -95,7 +95,9 @@ public class amazon {
 	}
 	/*This is for question 1 amazon1.png, give an array, need to build a BST tree, and then found the distance.
 	
-	Build an BST from array and found the distance between two AmazonNodes. This can be done by find the lowest common ancestor, once we found the lowest common ancestor, it will be very easy to found the distance between two nodes, just cound the steps from common ancestor to each nodes.
+	Build an BST from array and found the distance between two AmazonNodes. This can be done by find the lowest common ancestor,
+	once we found the lowest common ancestor, it will be very easy to found the distance between two nodes,
+	just count the steps from common ancestor to each node.
 	
 	This can be done by using recursive very easily, both building the tree and found the distance
 	*/
