@@ -1,9 +1,12 @@
 class Interleaving
 {
-	/* Given three strings A, B and C. Write a function that checks whether C is an interleaving of A and B. C is said to be interleaving A and B, if it contains all characters of A and B and order of all characters in individual strings is preserved.
+	/* Given three strings A, B and C. Write a function that checks whether C is an interleaving of A and B. C is said to be interleaving A and B,
+	if it contains all characters of A and B and order of all characters in individual strings is preserved.
 	*/
+
 	/*This version is very slow for following reasons:
-	  1. Because it is using recurse, same spot (x, y) are computted again and again, which is true for all recurse, because it is not memorizing. so time complexity is O(2^(m+n))
+	  1. Because it is using recurse, same spot (x, y) are computted again and again, which is true for all recurse, because
+	  it is not memorizing. so time complexity is O(2^(m+n))
 	  2. calling "substring()" will create a new string everytime, so even worse
        	  
 	*/
@@ -125,13 +128,13 @@ class Interleaving
         // Base case
         dp[0][0] = true;
 
-        // First column (only A contributes)
+        // First column (only A contributes) -- We've taken 0 characters from B (treating B as if it were empty so far)
         for (int i = 1; i <= m; i++) {
             dp[i][0] = dp[i - 1][0] && 
                        A.charAt(i - 1) == C.charAt(i - 1);
         }
 
-        // First row (only B contributes)
+        // First row (only B contributes) -- We've taken 0 characters from A (treating A as if it were empty so far)
         for (int j = 1; j <= n; j++) {
             dp[0][j] = dp[0][j - 1] && 
                        B.charAt(j - 1) == C.charAt(j - 1);

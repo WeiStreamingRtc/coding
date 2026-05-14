@@ -3,11 +3,16 @@ import java.util.Arrays;
 public class HeapSort {
 
     // Main heap sort function
+    // For a max heap, Every parent node must be greater than or equal to its children.
+    /* For a heap sort, it is keeping picking put the largest, and shift it to the end of the array.
+    when doing the next iteration, the heap portion is reduced (the unsorted part of the array)
+     */
     public static void heapSort(int[] arr) {
         int n = arr.length;
 
         // Step 1: Build max heap
         // Start from last non-leaf node and heapify each, last non-leaf node index is: n/2 -1
+        // Leaf nodes are already valid heaps automatically, so no need to sort them
         for (int i = n / 2 - 1; i >= 0; i--) {
             heapify(arr, n, i);
         }
@@ -26,7 +31,7 @@ public class HeapSort {
         }
     }
 
-    // Heapify subtree rooted at index i
+    // Heapify subtree rooted at index i. Push this node downward until heap property is restored
     // n is heap size
     private static void heapify(int[] arr, int n, int i) {
         int largest = i;        // Initialize largest as root
@@ -87,7 +92,7 @@ public class HeapSort {
     }
 
     public static void main(String[] args) {
-        int[] arr = {12, 11, 13, 5, 6, 7};
+        int[] arr = {5, 7, 4, 11, 6, 12};
 
         System.out.println("Original array: " + Arrays.toString(arr));
         System.out.println("\nHeap structure of original array:");

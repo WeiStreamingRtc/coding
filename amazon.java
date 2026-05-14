@@ -220,10 +220,5 @@ public class amazon {
 		
 		printPathOfLeavesWithStack(tree);
 		printLevelNodes(tree);
-		
-		
-		
-		
-		
 	}
 }

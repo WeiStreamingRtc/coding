@@ -16,8 +16,10 @@ public class BucketSort {
         int[] inputArr = {101,99,11,10,9,8,7,6,5,4,3,2,1,98,2000,23,500,12};
         BucketSort mms = new BucketSort();
         mms.sort(inputArr);
-   
-    }
+
+		int[] inputArr1 = {2,2,1,1,1,3,1,3};
+		mms.sort(inputArr1);
+	}
      
     public void sort(int input[]){
 	  int min, max, divider, bucket_num;
@@ -33,8 +35,9 @@ public class BucketSort {
 		  }		  
 	  }
 
-	  
 	  divider = (max ) / input.length;
+	  // for the case when the array is like: {2,2,1,1,1,3,1,3}. for this case, the divider will be 0
+	  if(divider == 0) divider = 1;
 	  //Note: has to add one more, otherwise, out of index
 	  bucket_num = max / divider + 1;
 	  

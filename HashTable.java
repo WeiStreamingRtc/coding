@@ -16,10 +16,10 @@ TreeMap (Implemented SortedMap):
 		  provided at map creation time, depending on which constructor is used.  
 	2)  Note that this implementation is not synchronized. If multiple threads access a map concurrently, and at least one of the threads modifies
 	the map structurally, it must be synchronized externally. (A structural modification is any operation that adds or deletes one or more mappings; 
-	merely changing the value associated with an existing key is not a structural modification.) This is typically accomplished by synchronizing on some object that naturally encapsulates the map. If no such object exists, the map should be "wrapped" using the Collections.synchronizedSortedMap method. 
+	merely changing the value associated with an existing key is not a structural modification.) This is typically accomplished by synchronizing on
+	some object that naturally encapsulates the map. If no such object exists, the map should be "wrapped" using the Collections.synchronizedSortedMap method.
 	This is best done at creation time, to prevent accidental unsynchronized access to the map:
    SortedMap m = Collections.synchronizedSortedMap(new TreeMap(...));
-		  
 */
 
 public class HashTable{

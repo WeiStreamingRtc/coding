@@ -1,7 +1,7 @@
 import java.util.*;
 
 /*
-Give an array of numbers and another target numberm, found all the combinations that add up to the given number. like a coin change problem
+Give an array of numbers and another target number, found all the combinations that add up to the given number. like a coin change problem
 Most backtracking questions has to use recursion.
                 
 Almost all backtracking solutions follow this exact structure:
