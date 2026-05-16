@@ -1,7 +1,5 @@
 import java.util.*;
 
-/*
-*/
 public class Praentheses {
     
     static ArrayList<String> answer = new ArrayList<String>();
@@ -43,10 +41,11 @@ public class Praentheses {
 	
 	public static void main(String [] arg){
 		answer = generateParenthesis(3);
-        System.out.println(answer);		
-		
+        System.out.println(answer);
+
+		answer.clear();
+		answer = generateParenthesis(2);
+		System.out.println(answer);
 	}
-	
-	
 }
 

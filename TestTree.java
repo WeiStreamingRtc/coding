@@ -45,7 +45,7 @@ class Tree<T>{
 		int midIndex =  (end + start ) / 2;
 		int mid = arr[ midIndex];
 		
-		Node<Integer> r = new Node<Integer>(new Integer(mid));
+		Node<Integer> r = new Node<Integer>(Integer.valueOf(mid));
 		
 		r.left = buildFromArray(arr,start,midIndex - 1); //REN: midIndex - 1
 		r.right = buildFromArray(arr,midIndex + 1,end); //REM midIndex + 1

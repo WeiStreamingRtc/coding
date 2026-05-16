@@ -122,7 +122,8 @@ public class TreePath {
 			
 		}
 	}
-	/* Given a binary search tree, design an algorithm which creates a linked list of all the nodes at each depth (eg, if you have a tree with depth D, you’ll have D linked lists).
+	/* Given a binary search tree, design an algorithm which creates a linked list of all the nodes at each depth
+	(eg, if you have a tree with depth D, you’ll have D linked lists).
 	
 	This is using an helping array.
 	*/
@@ -176,7 +177,7 @@ public class TreePath {
 		
 		stack.push(root);
 		tmpList = new LinkedList<Integer>();
-		tmpList.add(new Integer(root.value));
+		tmpList.add(Integer.valueOf(root.value));
 		
 		pathList.push(tmpList);
 		
@@ -191,15 +192,14 @@ public class TreePath {
 			}
 			if(tmp.left != null){
 				stack.push(tmp.left);
+				//Has to create a new list, if having two children, it will be two different path -- two different list
 				LinkedList<Integer> current = new LinkedList<Integer>();
 				
 				for (Integer temp : tmpList){
 					current.add(temp);					
 				}
-				
-				current.add(new Integer(tmp.left.value));
+				current.add(Integer.valueOf(tmp.left.value));
 				pathList.push(current);
-				
 			}
 			if(tmp.right != null) {
 				stack.push(tmp.right);
@@ -208,7 +208,7 @@ public class TreePath {
 				for (Integer temp : tmpList){
 					current.add(temp);					
 				}
-				current.add(new Integer(tmp.right.value));
+				current.add(Integer.valueOf(tmp.right.value));
 				pathList.push(current);
 			}
 		}

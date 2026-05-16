@@ -4,7 +4,8 @@ Note: Things to know about ArrayList
 1. The ArrayList  it is unsynchronized and permits nulls. To synchronize it: use 
 	List list = Collections.synchronizedList(new ArryList(...));
 	 
-2. ArrayList temp to order differently if it has members that are equal to each other. like if a list: 1 2 3 4, and 1 2 3 4 1, the order will be completely different, it will always put the equal members together.
+2. ArrayList temp to order differently if it has members that are equal to each other. like if a list: 1 2 3 4,
+and 1 2 3 4 1, the order will be completely different, it will always put the equal members together.
 
 4. 
 */

@@ -24,7 +24,7 @@ public class LeetCode05 {
 
     public int pathSum(TreeNode root, int targetSum) {
 
-        //Use this to remember, no need to remember the path
+        //Use this to remember, no need to remember the path, key is the sum, value is the number of paths
         Map<Long, Integer> prefixMap = new HashMap<>();
         prefixMap.put(0L, 1); // base case
         return dfs(root, 0, targetSum, prefixMap);

@@ -27,7 +27,8 @@ public static int countOnes(int m){
 	return count;	
 }
 
-/*You are given two 32-bit numbers, N and M, and two bit positions, i and j. Write a method to set all bits between i and j in N equal to M (e.g., M becomes a substring of N located at i and starting at j).
+/*You are given two 32-bit numbers, N and M, and two bit positions, i and j. Write a method to set all bits between
+i and j in N equal to M (e.g., M becomes a substring of N located at i and starting at j).
 EXAMPLE:
 Input: N = 10000000000, M = 10101, i = 2, j = 6
 Output: N = 10001010100
@@ -35,10 +36,12 @@ Output: N = 10001010100
 
 public static int updateBit(int n, int m, int i, int j) {
 	int max = ~0;
-	// 1’s through position j, then 0’s, like 11110000
+
 	/*	(1 << j)     = 100...000   (1 followed by j zeros)
 		(1 << j) - 1 = 011...111   (0 followed by j ones)
 	*/
+
+	// 1’s through position j, then 0’s, like 11110000
 	int left = max - ((1<<j) - 1);
 	// 1’s after position i, like 000001111
 	int right = (1<<i) -1;
@@ -258,16 +261,16 @@ public static void  convertNegativeBinary(int num){
 
 public static LinkedList<Integer> list = new LinkedList<Integer>();
 
+//This array is try to memorize the calculated number, the size is very small (8) to illustrate the idea:
+// try to memorize the calculated number so do not need to do the calculation again.
 public static int [] rem = new int [8];
 
 public static int calFibonacci(int n){
 	
 	System.out.println("calFibonacci of " + n);
-	
-		
+
 	int r = 1;
-	
-	
+
 	if(rem[n -1] != 0){
 		r = rem[n-1];		
 	}
@@ -277,12 +280,8 @@ public static int calFibonacci(int n){
 		r = calFibonacci(n -1) + calFibonacci(n -2);
 	  }
 	  rem[n - 1] = r;
-	  
 	}
-	
-	
 	return r;
-		
 }
 
 

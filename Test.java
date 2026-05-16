@@ -8,7 +8,8 @@ public class Test{
 	Output: 4
 	Explanation: The longest valid parentheses substring is "()()"
 	
-	Use a help array with 1 and -1 to  represent the "(" and ")", then zero the matching parentheses, and count the longest number of zero's in the help array.
+	Use a help array with 1 and -1 to  represent the "(" and ")", then zero the matching parentheses,
+	and count the longest number of zero's in the help array.
 	*/
 	
 	public static int longestValidParentheses(String s) {

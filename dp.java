@@ -4,6 +4,24 @@ public class dp {
 	
 	
 	//http://www.techiedelight.com/3-partition-problem/
+	/*
+	3-partition problem: Given a set S of positive integers, determine if it can be partitioned into three disjoint subsets
+	that all have the same sum, and they cover S.
+
+	The 3–partition problem is a special case of the Partition Problem, which is related to the Subset Sum Problem
+	(which itself is a special case of the Knapsack Problem). The goal is to partition S into two subsets with an equal
+	 sum in the partition problem. In the 3–partition problem, the goal is to partition S into 3 subsets with an equal sum.
+
+	 For example,
+
+	S = { 7, 3, 2, 1, 5, 4, 8 }
+
+	We can partition S into three partitions, each having a sum of 10.
+
+	S1 = { 7, 3 } S2 = { 5, 4, 1 } S3 = { 8, 2 }
+
+	Note that there can be multiple solutions to a single set.
+	 */
 	public static boolean subsetSum(int[] S, int n, int a, int b, int c, List<Integer> aList, List<Integer> bList,  List<Integer> cList)
     {
         // return true if the subset is found
@@ -80,13 +98,13 @@ public class dp {
 				if(n - array[i] == 0) {
 					T[n] = 1;
 					List<Integer> list = new ArrayList<Integer>();
-					list.add(new Integer(i));
+					list.add(Integer.valueOf(i));
 					map.put(n,list);					
 				}
 				else if (n - array[i] > 0 ){
 					T[n] = T[ n - array[i]];
 					if(T[n] == 1) {
-						List<Integer> list = map.get( new Integer(n - array[i]));
+						List<Integer> list = map.get(Integer.valueOf(n - array[i]));
 						List<Integer> temp = new ArrayList(list);
 						//because every number can use only once, we need to check if the same number alreay have been used
 				        //same number will be used many times.
@@ -101,7 +119,7 @@ public class dp {
 						if (has){
 							T[n] = 0;
 						}else {
-							temp.add(new Integer(i));
+							temp.add(Integer.valueOf(i));
 							map.put(n,temp);
 							//System.out.println(" T " + n + "= " + T[n]);
 						}
@@ -127,6 +145,12 @@ public class dp {
 
 	//find the minimum coins need to for a target value N
 	//http://www.techiedelight.com/coin-change-making-problem-unlimited-supply-coins/
+	/*	Given an unlimited supply of coins of given denominations, find the minimum number of coins required to get the desired change.
+     For example, consider S = { 1, 3, 5, 7 }.
+
+     If the desired change is 15, the minimum number of coins required is 3 (7 + 7 + 1) or (5 + 5 + 5) or (3 + 5 + 7)
+     If the desired change is 18, the minimum number of coins required is 4 (7 + 7 + 3 + 1) or (5 + 5 + 5 + 3) or (7 + 5 + 5 + 1)
+	 */
 	public static int findMinCoins(int[] coins, int target){
 		
 		int[] T = new int[target + 1];
